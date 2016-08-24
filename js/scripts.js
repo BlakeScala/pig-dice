@@ -5,7 +5,7 @@ function Player (name, score, turnTotal) {
   this.turnTotal = turnTotal;
 }
 Player.prototype.diceRoll = function(){
-  var randomNumber = 1 + Math.floor(Math.random() * 6);
+  randomNumber = 1 + Math.floor(Math.random() * 6);
   if (randomNumber >= 2 && randomNumber <=6){
     this.turnTotal += randomNumber;
   }
@@ -29,25 +29,37 @@ $(document).ready(function(){
     var playerOneName = $("#player-name").val();
     var playerTwoName = $("#player-two-name").val();
     var playerOneAdvantage = parseInt($("#p1start").val());
+    if (isNaN(playerOneAdvantage)){
+      playerOneAdvantage = 0
+    }
     var playerTwoAdvantage = parseInt($("#p2start").val());
+    if (isNaN(playerTwoAdvantage)){
+      playerTwoAdvantage = 0
+    }
     var turnTotal = 0
     playerOne = new Player(playerOneName, playerOneAdvantage, turnTotal);
     playerTwo = new Player(playerTwoName, playerTwoAdvantage, turnTotal);
     $("#result-name").text(playerOne.name + "'s");
     $("#result-name2").text(playerTwo.name + "'s");
-    $("#roll2").hide();
-    $("#hold2").hide();
+    $(".scores").show();
+    $("#p1score").text(playerOne.score);
+    $("#p2score").text(playerTwo.score);
+    $("#submitbutton").hide();
+    $("#reset").show();
   });
+
   $("#roll1").click(function(){
     playerOne.diceRoll();
-    console.log(playerOne.turnTotal);
     $("#p1total").text(playerOne.turnTotal);
+    $("#p1current").text(randomNumber);
   });
+
   $("#roll2").click(function(){
     playerTwo.diceRoll();
-    console.log(playerTwo.turnTotal);
     $("#p2total").text(playerTwo.turnTotal);
+    $("#p2current").text(randomNumber);
   });
+
   $("#hold1").click(function(){
     playerOne.hold();
     $("#p1total").text(playerOne.turnTotal);
@@ -56,11 +68,13 @@ $(document).ready(function(){
     $("#hold2").show();
     $("#roll1").hide();
     $("#hold1").hide();
+    $("#p1current").text("0");
     if (playerOne.score >=100){
       $(".winner").show();
       $("#winner-name").text(playerOne.name);
     }
   });
+
   $("#hold2").click(function(){
     playerTwo.hold();
     $("#p2total").text(playerTwo.turnTotal);
@@ -69,9 +83,14 @@ $(document).ready(function(){
     $("#hold1").show();
     $("#roll2").hide();
     $("#hold2").hide();
+    $("#p2current").text("0");
     if (playerTwo.score >=100){
       $(".winner").show();
       $("#winner-name").text(playerTwo.name);
     }
+  });
+
+  $("#reset").click(function(){
+    location.reload();
   });
 });
