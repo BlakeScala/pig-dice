@@ -6,14 +6,14 @@ function Player (name, score, turnTotal) {
 }
 Player.prototype.diceRoll = function(){
   randomNumber = 1 + Math.floor(Math.random() * 6);
-  if (randomNumber >= 2 && randomNumber <=6){
+  if (randomNumber >= 2 && randomNumber <= 6){
     this.turnTotal += randomNumber;
-  }
-  else if (randomNumber = 1) {
+  } else if (randomNumber === 1) {
     this.turnTotal = 0;
   }
-  return this.turnTotal;
+  return randomNumber;
 }
+
 Player.prototype.hold = function(){
   this.score += this.turnTotal;
   this.turnTotal = 0;
@@ -36,6 +36,12 @@ $(document).ready(function(){
     if (isNaN(playerTwoAdvantage)){
       playerTwoAdvantage = 0
     }
+    if (playerOneName === ""){
+      playerOneName = "Player One"
+    }
+    if (playerTwoName === ""){
+      playerTwoName = "Player Two"
+    }
     var turnTotal = 0
     playerOne = new Player(playerOneName, playerOneAdvantage, turnTotal);
     playerTwo = new Player(playerTwoName, playerTwoAdvantage, turnTotal);
@@ -49,13 +55,25 @@ $(document).ready(function(){
   });
 
   $("#roll1").click(function(){
-    playerOne.diceRoll();
+    var lastRoll = playerOne.diceRoll();
+    if (lastRoll === 1){
+      $("#roll2").show();
+      $("#hold2").show();
+      $("#roll1").hide();
+      $("#hold1").hide();
+    }
     $("#p1total").text(playerOne.turnTotal);
     $("#p1current").text(randomNumber);
   });
 
   $("#roll2").click(function(){
-    playerTwo.diceRoll();
+    var lastRoll = playerTwo.diceRoll();
+    if (lastRoll === 1){
+      $("#roll2").hide();
+      $("#hold2").hide();
+      $("#roll1").show();
+      $("#hold1").show();
+    }
     $("#p2total").text(playerTwo.turnTotal);
     $("#p2current").text(randomNumber);
   });
