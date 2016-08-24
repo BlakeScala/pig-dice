@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <title>Pig Dice</title>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="player-name">Enter player one name:</label>
+              <input id="player-name" type="form">
+            </div>
+            <div class="form-group">
+              <label for="p1start">Starting Advantage</label>
+              <input id="p1start" type="number" maximum=20 minimum=0>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="player-two-name">Enter player two name:</label>
+              <input id="player-two-name" type="form">
+            </div>
+            <div class="form-group">
+              <label for="p2start">Starting Advantage</label>
+              <input id="p2start" type="number" maximum=20 minimum=0>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-default" type="submit" name="button">Submit Players</button>
+      </form>
+      <div class="scores">
+        <div class="row">
+          <div id="p1results" class="col-md-6">
+            <h3><span id="result-name"></span> Score:<span id="p1score"></span> </h3>
+            <h3>Turn Total: <span id="p1total"></span></h3>
+            <h3>Current Roll: <span id="p1current"></span></h3>
+            <button id="roll1" type="button" name="button">Roll!</button>
+            <button id="hold1" type="button" name="button">Hold!</button>
+          </div>
+          <div id="p2results" class="col-md-6">
+            <h3><span id="result-name2"></span> Score: <span id="p2score"></span></h3>
+            <h3>Turn Total: <span id="p2total"></span></h3>
+            <h3>Current Roll: <span id="p2current"></span></h3>
+            <button id="roll2" type="button" name="button">Roll!</button>
+            <button id="hold2" type="button" name="button">Hold!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
