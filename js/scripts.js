@@ -51,7 +51,6 @@ $(document).ready(function(){
     $("#p1score").text(playerOne.score);
     $("#p2score").text(playerTwo.score);
     $("#submitbutton").hide();
-    $("#reset").show();
   });
 
   $("#roll1").click(function(){

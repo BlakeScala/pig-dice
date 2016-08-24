@@ -1,3 +1,61 @@
-.winner, .scores, #reset {
+.winner {
   display: none;
+  text-align: center;
+  font-family: 'Ewert', cursive;
+}
+.winner h2 {
+  font-size: 75px;
+}
+.scores {
+  display: none;
+  font-family: 'Arbutus', cursive;
+  font-size: 20px;
+}
+body {
+  background-color: #80bfff;
+}
+.col-sm-6 {
+  text-align: center;
+}
+.jumbotron {
+  background-color: darkblue;
+}
+.jumbotron h1 {
+  text-align: center;
+  color: white;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 82px;
+}
+#p1start, #player-name, #p2start, #player-two-name{
+  border: solid 2px;
+}
+#reset {
+  margin-top: 10px;
+  background-color: #ff9900;
+  color: black;
+  font-family: 'Arbutus', cursive;
+}
+#player-one-col, #player-two-col {
+  border: 2px solid black;
+  padding: 20px;
+  background-color: #e6f7ff;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-family: 'Arbutus', cursive;
+}
+#p1results, #p2results {
+  border: 2px solid black;
+  padding: 20px;
+  background-color: #e6f7ff;
+  margin-top: 25px;
+  height: 235px;
+}
+#roll1, #roll2, #submitbutton {
+  background-color: darkblue;
+  color: white;
+  font-family: 'Arbutus', cursive;
+}
+#hold1, #hold2 {
+  background-color: #ff9900;
+  color: black;
 }
