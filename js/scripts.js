@@ -5,13 +5,18 @@ function Player (name, score, turnTotal) {
   this.turnTotal = turnTotal;
 }
 Player.prototype.diceRoll = function(){
-  randomNumber = 1 + Math.floor(Math.random() * 6);
-  if (randomNumber >= 2 && randomNumber <= 6){
-    this.turnTotal += randomNumber;
-  } else if (randomNumber === 1) {
-    this.turnTotal = 0;
+  dice1 = 1 + Math.floor(Math.random() * 6);
+  dice2 = 1 + Math.floor(Math.random() * 6);
+  console.log(dice1);
+  console.log(dice2);
+  if (dice1 != 1 && dice2 != 1){
+    this.turnTotal += (dice1 + dice2);
+  } else if (dice1 === 1 || dice2 === 1) {
+  this.turnTotal = 0;
+  } else if (dice1 === 1 && dice2 === 1) {
+  this.turnTotal = 0;
+  this.score = 0;
   }
-  return randomNumber;
 }
 
 Player.prototype.hold = function(){
@@ -62,7 +67,8 @@ $(document).ready(function(){
       $("#hold1").hide();
     }
     $("#p1total").text(playerOne.turnTotal);
-    $("#p1current").text(randomNumber);
+    $("#p1dice1").text(dice1+ "+");
+    $("#p1dice2").text(dice2);
   });
 
   $("#roll2").click(function(){
@@ -74,7 +80,8 @@ $(document).ready(function(){
       $("#hold1").show();
     }
     $("#p2total").text(playerTwo.turnTotal);
-    $("#p2current").text(randomNumber);
+    $("#p2dice1").text(dice1 + "+");
+    $("#p2dice2").text(dice2);
   });
 
   $("#hold1").click(function(){
