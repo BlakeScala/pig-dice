@@ -1,21 +1,30 @@
 //backend
-function Player (name, score, turnTotal) {
+function Player (name, score, turnTotal, double) {
   this.name = name;
   this.score = score;
   this.turnTotal = turnTotal;
+  this.double = false;
 }
 Player.prototype.diceRoll = function(){
   dice1 = 1 + Math.floor(Math.random() * 6);
   dice2 = 1 + Math.floor(Math.random() * 6);
-  console.log(dice1);
-  console.log(dice2);
-  if (dice1 != 1 && dice2 != 1){
+  if (dice1 != 1 && dice2 != 1 && dice1 != dice2){
     this.turnTotal += (dice1 + dice2);
-  } else if (dice1 === 1 || dice2 === 1) {
-  this.turnTotal = 0;
+    this.double = false;
+    return this.double;
   } else if (dice1 === 1 && dice2 === 1) {
-  this.turnTotal = 0;
-  this.score = 0;
+    this.turnTotal = 0;
+    this.score = 0;
+    this.double = false;
+    return this.double;
+  } else if (dice1 === 1 && dice2 != 1 || dice2 === 1 && dice1 != 1) {
+    this.turnTotal = 0;
+    this.double = false;
+    return this.double;
+  } else if (dice1 === dice2 && dice1 != 1) {
+    this.turnTotal += (dice1 + dice2);
+    this.double = true;
+    return this.double;
   }
 }
 
@@ -31,6 +40,7 @@ $(document).ready(function(){
   var playerTwo;
   $("form").submit(function(event){
     event.preventDefault();
+    var double = false;
     var playerOneName = $("#player-name").val();
     var playerTwoName = $("#player-two-name").val();
     var playerOneAdvantage = parseInt($("#p1start").val());
@@ -48,8 +58,8 @@ $(document).ready(function(){
       playerTwoName = "Player Two"
     }
     var turnTotal = 0
-    playerOne = new Player(playerOneName, playerOneAdvantage, turnTotal);
-    playerTwo = new Player(playerTwoName, playerTwoAdvantage, turnTotal);
+    playerOne = new Player(playerOneName, playerOneAdvantage, turnTotal, double);
+    playerTwo = new Player(playerTwoName, playerTwoAdvantage, turnTotal, double);
     $("#result-name").text(playerOne.name + "'s");
     $("#result-name2").text(playerTwo.name + "'s");
     $(".scores").show();
@@ -59,8 +69,11 @@ $(document).ready(function(){
   });
 
   $("#roll1").click(function(){
+    if (playerOne.double === true) {
+      $("#hold1").show();
+    }
     var lastRoll = playerOne.diceRoll();
-    if (lastRoll === 1){
+    if (playerOne.turnTotal === 0){
       $("#roll2").show();
       $("#hold2").show();
       $("#roll1").hide();
@@ -69,11 +82,18 @@ $(document).ready(function(){
     $("#p1total").text(playerOne.turnTotal);
     $("#p1dice1").text(dice1+ "+");
     $("#p1dice2").text(dice2);
+    $("#p1score").text(playerOne.score);
+    if (playerOne.double === true) {
+      $("#hold1").hide();
+    }
   });
 
   $("#roll2").click(function(){
+    if (playerTwo.double === true) {
+      $("#hold2").show();
+    }
     var lastRoll = playerTwo.diceRoll();
-    if (lastRoll === 1){
+    if (playerTwo.turnTotal === 0){
       $("#roll2").hide();
       $("#hold2").hide();
       $("#roll1").show();
@@ -82,6 +102,10 @@ $(document).ready(function(){
     $("#p2total").text(playerTwo.turnTotal);
     $("#p2dice1").text(dice1 + "+");
     $("#p2dice2").text(dice2);
+    $("#p2score").text(playerTwo.score);
+    if (playerTwo.double === true) {
+      $("#hold2").hide();
+    }
   });
 
   $("#hold1").click(function(){
